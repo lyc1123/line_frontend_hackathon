@@ -39,20 +39,19 @@ export default {
       else{
         window.liff.getProfile()
         .then(function(profile){
-          console.log(this)
-          this.getUserImg();
+          this.UserImg = profile.pictureUrl;
         });
       }
     });
   },
-  methods:{
-    getUserImg: function(){
-      window.liff.getProfile()
-      .then((profile)=>{
-        this.UserImg = profile.pictureUrl;
-      })
-    }
-  }
+  // methods:{
+  //   getUserImg: function(){
+  //     window.liff.getProfile()
+  //     .then((profile)=>{
+  //       this.UserImg = profile.pictureUrl;
+  //     })
+  //   }
+  // }
 }
 </script>
 
