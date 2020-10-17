@@ -22,10 +22,10 @@ export default {
   },
   data(){
     return {
-      UserImg: '',
+      UserImg: '../assets/logo.png',
     }
   },
-  created(){
+  beforeCreate(){
     var liffID = '1655093786-Joa47Erb';
     window.liff.init({
     liffId: liffID
@@ -38,8 +38,8 @@ export default {
       }
       else{
         window.liff.getProfile()
-        .then(function(profile) {
-          this.getUserImg(profile);
+        .then(()=> {
+          this.getUserImg();
         });
       }
     })
@@ -48,8 +48,11 @@ export default {
     });
   },
   methods:{
-    getUserImg: function(profile){
-      this.UserImg = profile.pictureUrl;
+    getUserImg: function(){
+      window.liff.getProfile()
+      .then((profile)=>{
+        this.UserImg = profile.pictureUrl;
+      })
     }
   }
 }
