@@ -38,9 +38,9 @@ export default {
       }
       else{
         window.liff.getProfile()
-        .then(()=> {
-          this.getUserImg();
-        });
+        .then(
+          this.getUserImg()
+        );
       }
     })
     .catch(function(error) {
