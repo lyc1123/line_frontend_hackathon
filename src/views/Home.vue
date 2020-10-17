@@ -38,13 +38,11 @@ export default {
       }
       else{
         window.liff.getProfile()
-        .then(
-          this.getUserImg()
-        );
+        .then(function(profile){
+          console.log(this)
+          this.getUserImg();
+        });
       }
-    })
-    .catch(function(error) {
-        console.log(error);
     });
   },
   methods:{
