@@ -30,7 +30,7 @@ export default {
     window.liff.init({
     liffId: liffID
     })
-    .then(function() {
+    .then(()=> {
       console.log('LIFF init');
 
       if (!window.liff.isLoggedIn()) {
@@ -38,7 +38,7 @@ export default {
       }
       else{
         window.liff.getProfile()
-        .then(function(profile){
+        .then((profile)=>{
           this.UserImg = profile.pictureUrl;
         });
       }
