@@ -42,7 +42,7 @@ export default {
   beforeCreate(){
     window.$( document ).ready(()=>{
       console.log('aaaaaaaaaa')
-      window.$('.calendar').pignoseCalendar({multiple: true});
+      window.$('.calendar').pignoseCalendar({multiple: true,buttons:true});
     })
     var liffID = '1655093786-Joa47Erb';
     window.liff.init({
