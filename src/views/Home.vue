@@ -1,12 +1,25 @@
 <template>
   <div class="home">
-    <div class="member_group">
-      <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
-      <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-      <img class="circle_wrapper" id="profile_img" :src=UserImg>
-      <div class="circle_wrapper invite_wrapper" @click="shareTarget">
-        <i class="fas fa-share fa-2x"></i>
+    <div class="image_container">
+      <img class="cover" src="https://tnimage.s3.hicloud.net.tw/photos/2019/10/07/1570443526-5d9b1106c7c9c.jpg"/>
+    </div>
+    <div class="container">
+      <form method="POST" id="form_project">
+        <p>旅程名稱</p>
+        <input name="project_name">
+      </form>
+      <p>地點</p>
+      <input id="place">
+      <p>日期</p>
+      <input type="text" id="text-calendar" class="calendar" />
+      <p>成員</p>
+      <div class="member_group">
+        <img class="circle_wrapper" id="profile_img">
+        <div class="circle_wrapper invite_wrapper">
+            <i class="fas fa-share fa-2x"></i>
+        </div>
       </div>
+      <input type="submit" value="創建" form="form_project">
     </div>
   </div>
 </template>
@@ -27,6 +40,10 @@ export default {
     }
   },
   beforeCreate(){
+    window.$( document ).ready(()=>{
+      console.log('aaaaaaaaaa')
+      window.$('.calendar').pignoseCalendar({multiple: true});
+    })
     var liffID = '1655093786-Joa47Erb';
     window.liff.init({
     liffId: liffID
@@ -208,10 +225,32 @@ export default {
 </script>
 
 <style scoped>
-.member_group{
+.home{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
+}
+.container{
+    width: 80vw;
+}
+p{
+    font-size: 5vw;
+    margin: 2vw 0;
+}
+input{
+    font-size: 5vw;
+    width: 80vw;
+}
+input[type='submit']{
+    width: 20vw;
+    margin-top: 2vw;
+}
+.image_container{
+    width: 100vw;
+}
+.cover{
+    width: 100vw;
+    height: 60vw;
 }
 .circle_wrapper{
     border-radius: 50%;
@@ -229,5 +268,13 @@ export default {
 .invite_wrapper:hover{
     cursor: pointer;
     background-color: #49c4d0;
+}
+.member_group{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+#profile_img{
+    border: black 1px solid;
 }
 </style>
