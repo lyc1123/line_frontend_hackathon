@@ -194,11 +194,15 @@ makefile text
 *.zip binary
 
 ## FONTS
-*.ttf binary
-*.eot binary
-*.otf binary
-*.woff binary
-*.woff2 binary
+# *.ttf binary
+# *.eot binary
+# *.otf binary
+# *.woff binary
+# *.woff2 binary
+*.ttf     -text diff
+*.eot     -text diff
+*.woff    -text diff
+*.woff2   -text diff
 
 ## 可執行
 *.exe binary
