@@ -7,14 +7,14 @@
       <form method="POST" id="form_project">
         <p>旅程名稱</p>
         <input name="project_name">
+        <p>地點</p>
+        <input id="place">
+        <p>日期</p>
+        <input type="text" id="text-calendar" class="calendar" />
       </form>
-      <p>地點</p>
-      <input id="place">
-      <p>日期</p>
-      <input type="text" id="text-calendar" class="calendar" />
       <p>成員</p>
       <div class="member_group">
-        <img class="circle_wrapper" id="profile_img">
+        <img class="circle_wrapper" id="profile_img" :src=UserImg>
         <div class="circle_wrapper invite_wrapper">
             <i class="fas fa-share fa-2x"></i>
         </div>
