@@ -15,7 +15,7 @@
       <p>成員</p>
       <div class="member_group">
         <img class="circle_wrapper" id="profile_img" :src=UserImg>
-        <div class="circle_wrapper invite_wrapper">
+        <div class="circle_wrapper invite_wrapper" @click="shareTarget">
             <i class="fas fa-share fa-2x"></i>
         </div>
       </div>
