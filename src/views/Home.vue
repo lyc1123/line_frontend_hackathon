@@ -65,7 +65,8 @@ export default {
   },
   methods:{
     shareTarget(){
-      console.log(document.getElementsByName("project_name").value);
+      console.log(document.document.getElementById("cover").src);
+      console.log(this.UserName);
       window.liff.shareTargetPicker([
     {"type": "flex",
     "altText": "Flex Message",
