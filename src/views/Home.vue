@@ -65,8 +65,7 @@ export default {
   },
   methods:{
     shareTarget(){
-      console.log(document.getElementById("cover").src);
-      console.log(this.UserName);
+      console.log(document.getElementsByName("project_name")[0].value);
       window.liff.shareTargetPicker([
     {"type": "flex",
     "altText": "Flex Message",
@@ -89,7 +88,7 @@ export default {
         "contents": [
           {
             "type": "text",
-            "text": document.getElementsByName("project_name").value,
+            "text": document.getElementsByName("project_name")[0].value,
             "weight": "bold",
             "size": "xl"
           },
@@ -133,7 +132,7 @@ export default {
                   },
                   {
                     "type": "text",
-                    "text": document.getElementsByName("date").value,
+                    "text": document.getElementsByName("date")[0].value,
                     "wrap": true,
                     "color": "#666666",
                     "size": "sm",
