@@ -87,7 +87,7 @@ export default {
         "contents": [
           {
             "type": "text",
-            "text": document.getElementsByName("project_name").val(),
+            "text": document.getElementsByName("project_name").value,
             "weight": "bold",
             "size": "xl"
           },
@@ -131,7 +131,7 @@ export default {
                   },
                   {
                     "type": "text",
-                    "text": document.getElementsByName("date").val(),
+                    "text": document.getElementsByName("date").value,
                     "wrap": true,
                     "color": "#666666",
                     "size": "sm",
