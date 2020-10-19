@@ -1,16 +1,16 @@
 <template>
   <div class="home">
     <div class="image_container">
-      <img class="cover" src="https://tnimage.s3.hicloud.net.tw/photos/2019/10/07/1570443526-5d9b1106c7c9c.jpg"/>
+      <img id="cover" src="https://tnimage.s3.hicloud.net.tw/photos/2019/10/07/1570443526-5d9b1106c7c9c.jpg"/>
     </div>
     <div class="container">
       <form method="POST" id="form_project">
         <p>旅程名稱</p>
         <input name="project_name">
         <p>地點</p>
-        <input id="place">
+        <input id="place" name="place">
         <p>日期</p>
-        <input type="text" id="text-calendar" class="calendar" />
+        <input type="text" id="text-calendar" class="calendar" name="date"/>
       </form>
       <p>成員</p>
       <div class="member_group">
@@ -69,155 +69,103 @@ export default {
     {"type": "flex",
     "altText": "Flex Message",
     "contents":{
-  "type": "bubble",
-  "hero": {
-    "type": "image",
-    "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_1_cafe.png",
-    "size": "full",
-    "aspectRatio": "20:13",
-    "aspectMode": "cover",
-    "action": {
-      "type": "uri",
-      "uri": "http://linecorp.com/"
-    }
-  },
-  "body": {
-    "type": "box",
-    "layout": "vertical",
-    "contents": [
-      {
-        "type": "text",
-        "text": "Brown Cafe",
-        "weight": "bold",
-        "size": "xl"
+      "type": "bubble",
+      "hero": {
+        "type": "image",
+        "url": document.getElementById("cover").src,
+        "size": "full",
+        "aspectRatio": "20:13",
+        "aspectMode": "cover",
+        "action": {
+          "type": "uri",
+          "uri": "https://liff.line.me/1655093786-Joa47Erb/project"
+        }
       },
-      {
+      "body": {
         "type": "box",
-        "layout": "baseline",
-        "margin": "md",
+        "layout": "vertical",
         "contents": [
           {
-            "type": "icon",
-            "size": "sm",
-            "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"
-          },
-          {
-            "type": "icon",
-            "size": "sm",
-            "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"
-          },
-          {
-            "type": "icon",
-            "size": "sm",
-            "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"
-          },
-          {
-            "type": "icon",
-            "size": "sm",
-            "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"
-          },
-          {
-            "type": "icon",
-            "size": "sm",
-            "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gray_star_28.png"
-          },
-          {
             "type": "text",
-            "text": "4.0",
-            "size": "sm",
-            "color": "#999999",
-            "margin": "md",
-            "flex": 0
+            "text": document.getElementsByName("project_name").val(),
+            "weight": "bold",
+            "size": "xl"
+          },
+          {
+            "type": "box",
+            "layout": "vertical",
+            "margin": "lg",
+            "spacing": "sm",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "邀請人",
+                    "color": "#aaaaaa",
+                    "size": "sm",
+                    "flex": 2
+                  },
+                  {
+                    "type": "text",
+                    "text": this.UserName,
+                    "wrap": true,
+                    "color": "#666666",
+                    "size": "sm",
+                    "flex": 5
+                  }
+                ]
+              },
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "Time",
+                    "color": "#aaaaaa",
+                    "size": "sm",
+                    "flex": 2
+                  },
+                  {
+                    "type": "text",
+                    "text": document.getElementsByName("date").val(),
+                    "wrap": true,
+                    "color": "#666666",
+                    "size": "sm",
+                    "flex": 5
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
-      {
+      "footer": {
         "type": "box",
         "layout": "vertical",
-        "margin": "lg",
         "spacing": "sm",
         "contents": [
           {
-            "type": "box",
-            "layout": "baseline",
-            "spacing": "sm",
-            "contents": [
-              {
-                "type": "text",
-                "text": "Place",
-                "color": "#aaaaaa",
-                "size": "sm",
-                "flex": 1
-              },
-              {
-                "type": "text",
-                "text": "Miraina Tower, 4-1-6 Shinjuku, Tokyo",
-                "wrap": true,
-                "color": "#666666",
-                "size": "sm",
-                "flex": 5
-              }
-            ]
+            "type": "button",
+            "style": "link",
+            "height": "sm",
+            "action": {
+              "type": "uri",
+              "label": "加入",
+              "uri": "https://liff.line.me/1655093786-Joa47Erb/project"
+            }
           },
           {
-            "type": "box",
-            "layout": "baseline",
-            "spacing": "sm",
-            "contents": [
-              {
-                "type": "text",
-                "text": "Time",
-                "color": "#aaaaaa",
-                "size": "sm",
-                "flex": 1
-              },
-              {
-                "type": "text",
-                "text": "10:00 - 23:00",
-                "wrap": true,
-                "color": "#666666",
-                "size": "sm",
-                "flex": 5
-              }
-            ]
+            "type": "spacer",
+            "size": "sm"
           }
-        ]
+        ],
+        "flex": 0
       }
-    ]
-  },
-  "footer": {
-    "type": "box",
-    "layout": "vertical",
-    "spacing": "sm",
-    "contents": [
-      {
-        "type": "button",
-        "style": "link",
-        "height": "sm",
-        "action": {
-          "type": "uri",
-          "label": "CALL",
-          "uri": "https://linecorp.com"
-        }
-      },
-      {
-        "type": "button",
-        "style": "link",
-        "height": "sm",
-        "action": {
-          "type": "uri",
-          "label": "WEBSITE",
-          "uri": "https://linecorp.com"
-        }
-      },
-      {
-        "type": "spacer",
-        "size": "sm"
-      }
-    ],
-    "flex": 0
-  }
-}
+    }
     }]);
     }
   }
@@ -248,7 +196,7 @@ input[type='submit']{
 .image_container{
     width: 100vw;
 }
-.cover{
+#cover{
     width: 100vw;
     height: 60vw;
 }
