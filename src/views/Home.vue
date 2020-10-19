@@ -64,7 +64,7 @@ export default {
     });
   },
   methods:{
-    shareTarget: function(){
+    shareTarget(){
       console.log(document.getElementsByName("project_name").value);
       window.liff.shareTargetPicker([
     {"type": "flex",
