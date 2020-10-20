@@ -1,18 +1,46 @@
 <template>
   <div class="project">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/addRecord">Amount</router-link> |
+      <router-link to="/project">Who paid</router-link>
     </div>
-    <h1>This is an about page</h1>
+    <ul class="member_list_wrapper" id="member_list_wrapper">
+      <Member v-for="(mem,index) in member" :key=mem.name :index=index :name=mem.name :state=mem.state :amount=mem.amount v-on:checkbox="handleCheckboxChanged"></Member>
+    </ul>
   </div>
 </template>
 
 <script>
+import Member from '@/components/Member.vue'
 export default {
   name: "projact",
+  components: {
+    Member
+  },
   data(){
-
+    return{
+      amount: 1000,//要從紀錄頁取得
+      //要從server取得
+      member: [
+        {name:"aaa",state:false,edited:false,amount:null},{name:"bbb",state:false,edited:false,amount:null},{name:"ccc",state:false,edited:false,amount:null}
+      ]
+    }
+  },
+  methods: {
+    handleCheckboxChanged(index){
+      this.member[index].state = !this.member[index].state;
+      this.calculateAmount();
+    },
+    calculateAmount(){
+      var memberPaid = this.member.filter(e=>e.state)
+      this.member.forEach(e=>{
+        if (e.state == true){
+          var per_amount = this.amount/memberPaid.length;
+          e.amount = per_amount.toFixed(2);
+        }
+        else e.amount = null;
+      })
+    }
   }
 }
 </script>
@@ -29,5 +57,13 @@ export default {
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+.member_list_wrapper {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    /* 5*5=25 */
+    max-height: 23em;
+    overflow: auto;
 }
 </style>
