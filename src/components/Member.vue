@@ -1,22 +1,23 @@
 <template>
   <li class="todo-app__item">
     <div class="todo-app__checkbox">
-      <input type="checkbox" :id=name v-model="checkboxState">
-      <label :for=name></label>
+      <input type="checkbox" :id="name" v-model="checkboxState">
+      <label :for="name"></label>
     </div>
     <h3 class="todo-app__item-detail">{{name}}</h3>
-    <h3>{{amount}}</h3>
+    <input type="text" ref="inputAmount" v-show="state" :value="paidAmount" @keyup="emitAmount">
+    <i class="fas fa-pen" @click="editAmount" v-show="state"></i>
   </li>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: 'Member',
   props: {
     index: Number,
     name: String,
     state: Boolean,
-    amount: Number
+    paidAmount: Number
   },
   data(){
     return{
@@ -25,7 +26,17 @@ export default {
   },
   watch: {
     checkboxState(){
+      // console.log('checkboxState')
       this.$emit('checkbox',this.index)
+    }
+  },
+  methods: {
+    editAmount(){
+      // console.log('editAmount')
+      this.$refs.inputAmount.focus();
+    },
+    emitAmount(){
+      this.$emit('amountEdited',[this.index,this.$refs.inputAmount.value])
     }
   }
 }
@@ -36,7 +47,7 @@ export default {
 .todo-app__item {
     position: relative;
     width: 90%;
-    min-height: 5em;
+    /* min-height: 5em; */
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -49,7 +60,7 @@ export default {
     width: 20px;
     height: 20px;
     background: #ddd;
-    margin: 15px;
+    margin: 10px;
     border-radius: 100%;
     position: relative;
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.312);
@@ -82,5 +93,12 @@ export default {
 }
 input[type='checkbox'] {
     visibility: hidden;
+}
+input[type='text']{
+  border: none;
+  right: 20px;
+}
+i{
+  right: 20px;
 }
 </style>
