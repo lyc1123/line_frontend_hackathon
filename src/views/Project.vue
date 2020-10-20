@@ -5,7 +5,7 @@
       <router-link to="/project">Who paid</router-link>
     </div>
     <ul class="member_list_wrapper" id="member_list_wrapper">
-      <Member v-for="(mem,index) in member" :key=mem.name :index=index :name=mem.name :state=mem.state :amount=mem.amount v-on:checkbox="handleCheckboxChanged"></Member>
+      <Member v-for="(mem,index) in member" :key=mem.name :index=index :name=mem.name :state=mem.state :amount=mem.paidAmount v-on:checkbox="handleCheckboxChanged"></Member>
     </ul>
   </div>
 </template>
@@ -22,7 +22,7 @@ export default {
       amount: 1000,//要從紀錄頁取得
       //要從server取得
       member: [
-        {name:"aaa",state:false,edited:false,amount:null},{name:"bbb",state:false,edited:false,amount:null},{name:"ccc",state:false,edited:false,amount:null}
+        {name:"aaa",state:false,edited:false,paidAmount:null},{name:"bbb",state:false,edited:false,paidAmount:null},{name:"ccc",state:false,edited:false,paidAmount:null}
       ]
     }
   },
@@ -36,9 +36,9 @@ export default {
       this.member.forEach(e=>{
         if (e.state == true){
           var per_amount = this.amount/memberPaid.length;
-          e.amount = per_amount.toFixed(2);
+          e.paidAmount = Number(per_amount.toFixed(2));
         }
-        else e.amount = null;
+        else e.paidAmount = null;
       })
     }
   }

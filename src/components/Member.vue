@@ -4,8 +4,8 @@
       <input type="checkbox" :id=name v-model="checkboxState">
       <label :for=name></label>
     </div>
-    <h1 class="todo-app__item-detail">{{name}}</h1>
-    <h1>{{amount}}</h1>
+    <h3 class="todo-app__item-detail">{{name}}</h3>
+    <h3>{{amount}}</h3>
   </li>
 </template>
 
@@ -46,8 +46,8 @@ export default {
     border-top: 0;
 }
 .todo-app__checkbox {
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
     background: #ddd;
     margin: 15px;
     border-radius: 100%;
@@ -55,15 +55,15 @@ export default {
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.312);
 }
 .todo-app__checkbox label {
-    width: 20px;
-    height: 20px;
+    width: 14px;
+    height: 14px;
     border-radius: 100px;
 
     transition: all 0.5s ease;
     cursor: pointer;
     position: absolute;
-    top: 5px;
-    left: 5px;
+    top: 3px;
+    left: 3px;
     z-index: 1;
 
     background: rgba(99, 99, 99, 0.698);
@@ -77,7 +77,6 @@ export default {
 .todo-app__item-detail {
     font-weight: 300;
     overflow-wrap: break-word;
-    width: 90%;
     transition: opacity 0.3s;
     height: 100%;
 }
