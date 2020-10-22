@@ -8,7 +8,7 @@
             <h4>備註：</h4>
             <input v-model="memo">
             <h4>日期：</h4>
-            <input type="text" id="text-calendar" class="calendar" name="date"/>
+            <input type="text" id="text-calendar" class="calendar" name="date" v-model='date'/>
         </div>
         <Payer v-if="state==1" :amount='Number(amount)' :member='member'></Payer>
         <Paidfor v-if="state==2" :amount='Number(amount)' :member='member'></Paidfor>
@@ -43,7 +43,7 @@ export default {
   created(){
     window.$( document ).ready(()=>{
       console.log('aaaaaaaaaa')
-      window.$('.calendar').pignoseCalendar();
+      window.$('.calendar').pignoseCalendar({multiple:true,buttons:true});
     })
   },
   methods: {

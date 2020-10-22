@@ -42,6 +42,9 @@ export default {
     return {
       UserImg: '../assets/logo.png',
       UserName: '',
+      project_name: null,
+      place: null,
+      date: null
     }
   },
   beforeCreate(){
