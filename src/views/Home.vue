@@ -8,7 +8,12 @@
         <p>旅程名稱</p>
         <input name="project_name">
         <p>地點</p>
-        <input id="place" name="place">
+        <select name="place">
+          <option value="Taipei">台北</option>
+          <option value="Taoyuan">桃園</option>
+          <option value="Hsinchu">新竹</option>
+          <option value="Miaoli">苗栗</option>
+        </select>
         <p>日期</p>
         <input type="text" id="text-calendar" class="calendar" name="date"/>
       </form>
@@ -186,7 +191,7 @@ p{
     font-size: 5vw;
     margin: 2vw 0;
 }
-input{
+input,select{
     font-size: 5vw;
     width: 80vw;
 }
