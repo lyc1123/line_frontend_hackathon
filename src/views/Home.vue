@@ -94,6 +94,7 @@ export default {
       this.date = document.getElementsByName("date")[0].value;
     },
     shareTarget(){
+      alert("aaaaaaaaa")
       window.liff.shareTargetPicker([
     {"type": "flex",
     "altText": "Flex Message",
