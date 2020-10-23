@@ -94,7 +94,6 @@ export default {
       this.date = document.getElementsByName("date")[0].value;
     },
     shareTarget(){
-      alert("aaaaaaaaa")
       window.liff.shareTargetPicker([
     {"type": "flex",
     "altText": "Flex Message",
@@ -154,7 +153,7 @@ export default {
                 "contents": [
                   {
                     "type": "text",
-                    "text": "Time",
+                    "text": "時間",
                     "color": "#aaaaaa",
                     "size": "sm",
                     "flex": 2
@@ -162,6 +161,27 @@ export default {
                   {
                     "type": "text",
                     "text": this.date,
+                    "wrap": true,
+                    "color": "#666666",
+                    "size": "sm",
+                    "flex": 5
+                  }
+                ]
+              },
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "地點",
+                    "color": "#aaaaaa",
+                    "size": "sm",
+                    "flex": 2
+                  },
+                  {
+                    "type": "text",
+                    "text": this.place,
                     "wrap": true,
                     "color": "#666666",
                     "size": "sm",
