@@ -36,7 +36,7 @@
             <option value="Lienchiang">連江</option>
           </select>
         </form>
-        <input type="submit" value="創建" form="form_project" @click="uploadData">
+        <input type="submit" value="創建 >>" form="form_project" @click="uploadData">
       </div>
     </div>
     <div v-if='state==1'>
@@ -262,7 +262,7 @@ input,select{
 }
 
 select {
-  width: 95%;
+  width: 100%;
   -webkit-appearance: none;
   -moz-appearance: none;
   background: transparent;
@@ -271,19 +271,16 @@ select {
   background-position-x: 100%;
   border-radius: 5px;
   margin-right: 2rem;
-  padding: 0.2rem;
+  padding: 0.4rem;
   padding-right: 2rem;
 }
 input[type='submit']{
   -webkit-appearance: none;
-  width: 110px;
-  height: 30px;
+  width: 90%;
+  height: 50px;
   border-radius: 10px;
   background-color:  #2fabb7;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
+  text-align: center;
   cursor: pointer;
   color: white;
   margin-top: 5vw;
