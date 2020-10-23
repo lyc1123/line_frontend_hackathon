@@ -262,14 +262,14 @@ input,select{
 }
 
 select {
-  width: 100%;
+  width: 98%;
   -webkit-appearance: none;
   -moz-appearance: none;
   background: transparent;
   background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
   background-repeat: no-repeat;
-  background-position-x: 90%;
-  background-position-y: 1rem;
+  background-position-x: 100%;
+  background-position-y: 0.5rem;
   border-radius: 5px;
   margin-right: 2rem;
   padding: 0.4rem;
