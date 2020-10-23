@@ -6,16 +6,32 @@
     <div class="container">
       <form method="POST" id="form_project">
         <p>旅程名稱</p>
-        <input name="project_name">
+        <input name="project_name" v-model="project_name">
         <p>地點</p>
-        <select name="place">
-          <option value="Taipei">台北</option>
+        <select name="place" v-model="place">
+          <option value="Keelung">基隆</option>
+          <option value="NewTaipei">新北</option>
+          <option value="Taipei">臺北</option>
+          <option value="Yilan">宜蘭</option>
           <option value="Taoyuan">桃園</option>
           <option value="Hsinchu">新竹</option>
           <option value="Miaoli">苗栗</option>
+          <option value="Taichung">臺中</option>
+          <option value="Changhua">彰化</option>
+          <option value="Nantou">南投</option>
+          <option value="Yunlin">雲林</option>
+          <option value="Chiayi">嘉義</option>
+          <option value="Tainan">臺南</option>
+          <option value="Kaohsiung">高雄</option>
+          <option value="Pingtung">屏東</option>
+          <option value="Taitung">臺東</option>
+          <option value="Hualien">花蓮</option>
+          <option value="Penghu">澎湖</option>
+          <option value="Kinmen">金門</option>
+          <option value="Lienchiang">連江</option>
         </select>
         <p>日期</p>
-        <input type="text" id="text-calendar" class="calendar" name="date"/>
+        <input type="text" id="text-calendar" class="calendar" name="date" />
       </form>
       <p>成員</p>
       <div class="member_group">
@@ -24,7 +40,7 @@
             <i class="fas fa-share fa-2x"></i>
         </div>
       </div>
-      <input type="submit" value="創建" form="form_project">
+      <input type="submit" value="創建" form="form_project" @click="uploadData">
     </div>
   </div>
 </template>
@@ -44,7 +60,6 @@ export default {
       UserName: '',
       project_name: null,
       place: null,
-      date: null
     }
   },
   beforeCreate(){
@@ -72,6 +87,9 @@ export default {
     });
   },
   methods:{
+    uploadData(){
+
+    },
     shareTarget(){
       console.log(document.getElementsByName("project_name")[0].value);
       window.liff.shareTargetPicker([
