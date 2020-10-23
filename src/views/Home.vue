@@ -10,6 +10,8 @@
         <form method="POST" id="form_project">
           <p>旅程名稱:</p>
           <input name="project_name" v-model="project_name">
+          <p>日期:</p>
+          <input type="text" id="text-calendar" class="calendar" name="date" />
           <p>地點:</p>
           <select name="place" v-model="place">
             <option value="Keelung">基隆</option>
@@ -33,8 +35,6 @@
             <option value="Kinmen">金門</option>
             <option value="Lienchiang">連江</option>
           </select>
-          <p>日期:</p>
-          <input type="text" id="text-calendar" class="calendar" name="date" />
         </form>
         <input type="submit" value="創建" form="form_project" @click="uploadData">
       </div>
@@ -257,32 +257,36 @@ p{
 }
 input,select{
     font-size: 5vw;
-    width: 88%;
-    border: 1px solid #dfdfdf;
+    width: 90%;
+    border: 1px solid #555555;
 }
 
 select {
+  width: 95%;
   -webkit-appearance: none;
   -moz-appearance: none;
   background: transparent;
   background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
   background-repeat: no-repeat;
   background-position-x: 100%;
-  background-position-y: -2px;
-  border-radius: 2px;
+  border-radius: 5px;
   margin-right: 2rem;
-  padding: 0.1rem;
+  padding: 0.2rem;
   padding-right: 2rem;
 }
 input[type='submit']{
-    width: 20vw;
-    margin-top: 2vw;
-    background-color: #00c300;
-    border-radius: 10px;
-    color: white;
-    border: none;
-    /* box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.312); */
-    margin-top: 5vw;
+  -webkit-appearance: none;
+  width: 110px;
+  height: 30px;
+  border-radius: 10px;
+  background-color:  #2fabb7;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  cursor: pointer;
+  color: white;
+  margin-top: 5vw;
 }
 .circle_wrapper{
     border-radius: 50%;
