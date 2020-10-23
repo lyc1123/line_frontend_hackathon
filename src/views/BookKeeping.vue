@@ -1,9 +1,15 @@
 <template>
     <div>
         <div v-if="state == 3">
+            <div class="btn_next" @click="()=>this.state = 4">Debts</div>
             <Record v-for="record in records" :key="record.name" :data="record"></Record>
         </div>
         <div class="btn_next" v-if="state==3" @click="handleClick(0)">+</div>
+
+        <div v-if="state == 4">
+            <div class="btn_next" @click="()=>this.state = 3">＜</div>
+            <Debt :data="records"></Debt>
+        </div>
 
         <div v-if="state == 0">
             <h4>帳單金額：</h4>
@@ -27,6 +33,7 @@
 
 <script>
 import Record from '@/components/Record.vue'
+import Debt from '@/components/Debt.vue'
 import Paidfor from '@/components/Paidfor.vue'
 import Payer from '@/components/Payer.vue'
 export default {
@@ -34,7 +41,8 @@ export default {
     components: {
         Payer,
         Paidfor,
-        Record
+        Record,
+        Debt
     },
     data(){
         return{
@@ -43,10 +51,11 @@ export default {
             item_name: null,
             memo: null,
             date: null,
-            //要從server取得
             member: null,
+            //要從server取得
             records: [
-                {name:"apple",date:"2020-10-23",amount:1000,memo:"hi",user:[{name:'user1',paidAmount:1000,cost:500},{name:'user2',paidAmount:null,cost:500}]}
+                {name:"apple",date:"2020-10-23",amount:1000,memo:"hi",user:[{name:'user1',paidAmount:1000,cost:500},{name:'user2',paidAmount:null,cost:500}]},
+                {name:"cake",date:"2020-10-24",amount:1000,memo:"hi",user:[{name:'user1',paidAmount:500,cost:1000},{name:'user2',paidAmount:500,cost:null}]}
             ]
         }
     },
@@ -118,18 +127,6 @@ export default {
 </script>
 
 <style scoped>
-#nav {
-  padding: 10px;
-}
-
-a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-a.router-link-exact-active {
-  color: #42b983;
-}
 .member_list_wrapper {
     list-style: none;
     padding: 0;
@@ -142,7 +139,7 @@ a.router-link-exact-active {
   width: 110px;
   height: 30px;
   border-radius: 10px;
-  background-color: #42b983;
+  background-color:  #2fabb7;
   display: flex;
   flex-direction: column;
   justify-content: center;
