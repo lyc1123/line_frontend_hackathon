@@ -1,14 +1,16 @@
 <template>
-  <div class="home">
+  <div>
     <div v-if="state==0">
       <div class="image_container">
         <img id="cover" src="https://tnimage.s3.hicloud.net.tw/photos/2019/10/07/1570443526-5d9b1106c7c9c.jpg"/>
+        <div class="img_filter"></div>
+        <h2>創建旅程</h2>
       </div>
       <div class="container">
         <form method="POST" id="form_project">
-          <p>旅程名稱</p>
+          <p>旅程名稱:</p>
           <input name="project_name" v-model="project_name">
-          <p>地點</p>
+          <p>地點:</p>
           <select name="place" v-model="place">
             <option value="Keelung">基隆</option>
             <option value="NewTaipei">新北</option>
@@ -31,14 +33,14 @@
             <option value="Kinmen">金門</option>
             <option value="Lienchiang">連江</option>
           </select>
-          <p>日期</p>
+          <p>日期:</p>
           <input type="text" id="text-calendar" class="calendar" name="date" />
         </form>
         <input type="submit" value="創建" form="form_project" @click="uploadData">
       </div>
     </div>
     <div v-if='state==1'>
-      <p>成員</p>
+      <p>將旅程分享給你的夥伴</p>
       <div class="member_group">
         <img class="circle_wrapper" id="profile_img" :src=UserImg>
         <div class="circle_wrapper invite_wrapper" @click="shareTarget">
@@ -52,9 +54,6 @@
 <script>
 export default {
   name: 'Home',
-  components: {
-    // HelloWorld
-  },
   data(){
     return {
       UserImg: '../assets/logo.png',
@@ -69,24 +68,24 @@ export default {
     window.$( document ).ready(()=>{
       window.$('.calendar').pignoseCalendar({multiple: true,buttons:true});
     })
-    var liffID = '1655093786-Joa47Erb';
-    window.liff.init({
-    liffId: liffID
-    })
-    .then(()=> {
-      console.log('LIFF init');
+    // var liffID = '1655093786-Joa47Erb';
+    // window.liff.init({
+    // liffId: liffID
+    // })
+    // .then(()=> {
+    //   console.log('LIFF init');
 
-      if (!window.liff.isLoggedIn()) {
-        window.liff.login();
-      }
-      else{
-        window.liff.getProfile()
-        .then((profile)=>{
-          this.UserName = profile.displayName;
-          this.UserImg = profile.pictureUrl;
-        });
-      }
-    });
+    //   if (!window.liff.isLoggedIn()) {
+    //     window.liff.login();
+    //   }
+    //   else{
+    //     window.liff.getProfile()
+    //     .then((profile)=>{
+    //       this.UserName = profile.displayName;
+    //       this.UserImg = profile.pictureUrl;
+    //     });
+    //   }
+    // });
   },
   methods:{
     uploadData(){//上傳到server
@@ -223,13 +222,34 @@ export default {
 </script>
 
 <style scoped>
-.home{
-    display: flex;
+.image_container{
+    width: 100vw;
+    height: 60vw;
+    /* display: flex;
     flex-direction: column;
-    align-items: center;
+    align-content: center;
+    justify-content: center; */
+}
+#cover, .img_filter{
+  width: 100vw;
+  height: 60vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.img_filter{
+  background-color: rgba(0,0,0,0.3);
+}
+h2{
+  position: absolute;
+  color: white;
+  z-index: 3;
+  top:18vw;
+  left: 32vw;
+  text-shadow: 1px 3px rgba(0, 0, 0, 0.52);
 }
 .container{
-    width: 80vw;
+  margin: 10px 6%;
 }
 p{
     font-size: 5vw;
@@ -237,18 +257,20 @@ p{
 }
 input,select{
     font-size: 5vw;
-    width: 80vw;
+    width: 100%;
+}
+select{
+  background-color: white;
 }
 input[type='submit']{
     width: 20vw;
     margin-top: 2vw;
-}
-.image_container{
-    width: 100vw;
-}
-#cover{
-    width: 100vw;
-    height: 60vw;
+    background-color: #00c300;
+    border-radius: 10px;
+    color: white;
+    border: none;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.312);
+    margin-top: 5vw;
 }
 .circle_wrapper{
     border-radius: 50%;
