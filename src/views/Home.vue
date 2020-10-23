@@ -61,6 +61,7 @@ export default {
       UserName: '',
       project_name: null,
       place: null,
+      date: null,
       state: 0
     }
   },
@@ -90,9 +91,9 @@ export default {
   methods:{
     uploadData(){//上傳到server
       this.state = 1;
+      this.date = document.getElementsByName("date")[0].value;
     },
     shareTarget(){
-      console.log(document.getElementsByName("project_name")[0].value);
       window.liff.shareTargetPicker([
     {"type": "flex",
     "altText": "Flex Message",
@@ -100,7 +101,7 @@ export default {
       "type": "bubble",
       "hero": {
         "type": "image",
-        "url": document.getElementById("cover").src,
+        "url": "https://tnimage.s3.hicloud.net.tw/photos/2019/10/07/1570443526-5d9b1106c7c9c.jpg",
         "size": "full",
         "aspectRatio": "20:13",
         "aspectMode": "cover",
@@ -115,7 +116,7 @@ export default {
         "contents": [
           {
             "type": "text",
-            "text": document.getElementsByName("project_name")[0].value,
+            "text": this.project_name,
             "weight": "bold",
             "size": "xl"
           },
@@ -159,7 +160,7 @@ export default {
                   },
                   {
                     "type": "text",
-                    "text": document.getElementsByName("date")[0].value,
+                    "text": this.date,
                     "wrap": true,
                     "color": "#666666",
                     "size": "sm",
