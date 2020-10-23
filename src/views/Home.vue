@@ -4,7 +4,7 @@
       <div class="image_container">
         <img id="cover" src="https://tnimage.s3.hicloud.net.tw/photos/2019/10/07/1570443526-5d9b1106c7c9c.jpg"/>
         <div class="img_filter"></div>
-        <h2>創建旅程</h2>
+        <h1>創建旅程</h1>
       </div>
       <div class="container">
         <form method="POST" id="form_project">
@@ -223,7 +223,7 @@ export default {
 
 <style scoped>
 .image_container{
-    width: 100vw;
+    width: 100%;
     height: 60vw;
     /* display: flex;
     flex-direction: column;
@@ -231,7 +231,7 @@ export default {
     justify-content: center; */
 }
 #cover, .img_filter{
-  width: 100vw;
+  width: 100%;
   height: 60vw;
   position: absolute;
   top: 0;
@@ -240,7 +240,7 @@ export default {
 .img_filter{
   background-color: rgba(0,0,0,0.3);
 }
-h2{
+h1{
   position: absolute;
   color: white;
   z-index: 3;
@@ -257,7 +257,7 @@ p{
 }
 input,select{
     font-size: 5vw;
-    width: 100%;
+    width: 88%;
 }
 select{
   background-color: white;
@@ -269,7 +269,7 @@ input[type='submit']{
     border-radius: 10px;
     color: white;
     border: none;
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.312);
+    /* box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.312); */
     margin-top: 5vw;
 }
 .circle_wrapper{
