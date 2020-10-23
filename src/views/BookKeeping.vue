@@ -1,5 +1,10 @@
 <template>
     <div>
+        <div v-if="state == 3">
+            <Record v-for="record in records" :key="record.name" :data="record"></Record>
+        </div>
+        <div class="btn_next" v-if="state==3" @click="handleClick(0)">+</div>
+
         <div v-if="state == 0">
             <h4>帳單金額：</h4>
             <input v-model="amount">
@@ -8,61 +13,107 @@
             <h4>備註：</h4>
             <input v-model="memo">
             <h4>日期：</h4>
-            <input type="text" id="text-calendar" class="calendar" name="date" v-model='date'/>
+            <input type="text" id="text-calendar" class="calendar" name="date"/>
         </div>
+        <div class="btn_next" v-if="state==0&&amount!=null" @click="handleClick(1)">Who Paid >></div>
+
         <Payer v-if="state==1" :amount='Number(amount)' :member='member'></Payer>
-        <Paidfor v-if="state==2" :amount='Number(amount)' :member='member'></Paidfor>
-        <div class="btn_next" v-if="state==0&&amount!=null" @click="()=>this.state = 1">Who Paid >></div>
         <div class="btn_next" v-if="state==1&&checkValid(1)" @click="()=>this.state = 2">Paid For >></div>
-        <div class="btn_next" v-if="state==2&&checkValid(2)">Save</div>
+
+        <Paidfor v-if="state==2" :amount='Number(amount)' :member='member'></Paidfor>        
+        <div class="btn_next" v-if="state==2&&checkValid(2)" @click="uploadRecord">Save</div>
     </div>
 </template>
 
 <script>
+import Record from '@/components/Record.vue'
 import Paidfor from '@/components/Paidfor.vue'
 import Payer from '@/components/Payer.vue'
 export default {
-  name: "bookkeeping",
-  components: {
-    Payer,
-    Paidfor
-  },
-  data(){
-    return{
-        state: 0,
-        amount: null,
-        item_name: null,
-        memo: null,
-        date: null,
-        //要從server取得
-        member: [
-            {name:"aaa",state:false,edited:false,paidAmount:null,cost:null},{name:"bbb",state:false,edited:false,paidAmount:null,cost:null},{name:"ccc",state:false,edited:false,paidAmount:null,cost:null}
-        ]
+    name: "bookkeeping",
+    components: {
+        Payer,
+        Paidfor,
+        Record
+    },
+    data(){
+        return{
+            state: 3,
+            amount: null,
+            item_name: null,
+            memo: null,
+            date: null,
+            //要從server取得
+            member: null,
+            records: [
+                {name:"apple",date:"2020-10-23",amount:1000,memo:"hi",user:[{name:'user1',paidAmount:1000,cost:500},{name:'user2',paidAmount:null,cost:500}]}
+            ]
+        }
+    },
+    created(){
+        this.requestRecords();
+    },
+    methods: {
+        requestRecords(){
+            //請求紀錄
+            let userinfo = []
+            for (var i = 0;i<this.records[0]["user"].length;i++){
+                userinfo.push(Object.assign({}, this.records[0]["user"][i]))
+            }
+            userinfo.forEach(e=>{
+                e.paidAmount = null;
+                e.cost = null;
+                e.state = false;
+                e.edited = false;
+            })
+            this.member = userinfo;
+        },
+        handleClick(i){
+            switch (i){
+                case 0:
+                    this.state = 0;
+                    this.amount = null;
+                    this.item_name = null;
+                    this.date = null;
+                    this.memo = null;
+                    window.$( document ).ready(()=>{
+                        console.log('aaaaaaaaaa')
+                        window.$('.calendar').pignoseCalendar({buttons:true});
+                    })
+                    break;
+                case 1:
+                    this.date = document.getElementsByName("date")[0].value;
+                    this.state = 1;
+                    break;
+            } 
+        },
+        checkValid(state){
+            let sum = 0;
+            if (state == 1){
+                this.member.forEach(e=>{
+                sum += e.paidAmount;
+                })
+            }
+            else if (state == 2){
+                this.member.forEach(e=>{
+                sum += e.cost;
+                })
+            }
+            if (Math.round(sum) == this.amount) return true;
+            else return false;
+        },
+        uploadRecord(){
+            this.member.forEach(e=>{
+                delete e.edited;
+                delete e.state;
+            })
+            var item = {name:this.item_name, date:this.date, amount:this.amount, memo:this.memo, user:this.member}
+            this.records.push(item);
+            //上傳到server
+
+            this.state = 3;
+        }
     }
-  },
-  created(){
-    window.$( document ).ready(()=>{
-      console.log('aaaaaaaaaa')
-      window.$('.calendar').pignoseCalendar({multiple:true,buttons:true});
-    })
-  },
-  methods: {
-      checkValid(state){
-        let sum = 0;
-        if (state == 1){
-            this.member.forEach(e=>{
-            sum += e.paidAmount;
-            })
-        }
-        else if (state == 2){
-            this.member.forEach(e=>{
-            sum += e.cost;
-            })
-        }
-        if (Math.round(sum) == this.amount) return true;
-        else return false;
-      }
-  }
 }
 </script>
 
