@@ -86,8 +86,7 @@ export default {
                     this.date = null;
                     this.memo = null;
                     window.$( document ).ready(()=>{
-                        console.log('aaaaaaaaaa')
-                        window.$('.calendar').pignoseCalendar({buttons:true});
+                        window.$('.calendar').pignoseCalendar();
                     })
                     break;
                 case 1:

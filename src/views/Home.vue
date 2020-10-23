@@ -1,38 +1,43 @@
 <template>
   <div class="home">
-    <div class="image_container">
-      <img id="cover" src="https://tnimage.s3.hicloud.net.tw/photos/2019/10/07/1570443526-5d9b1106c7c9c.jpg"/>
+    <div v-if="state==0">
+      <div class="image_container">
+        <img id="cover" src="https://tnimage.s3.hicloud.net.tw/photos/2019/10/07/1570443526-5d9b1106c7c9c.jpg"/>
+      </div>
+      <div class="container">
+        <form method="POST" id="form_project">
+          <p>旅程名稱</p>
+          <input name="project_name" v-model="project_name">
+          <p>地點</p>
+          <select name="place" v-model="place">
+            <option value="Keelung">基隆</option>
+            <option value="NewTaipei">新北</option>
+            <option value="Taipei">臺北</option>
+            <option value="Yilan">宜蘭</option>
+            <option value="Taoyuan">桃園</option>
+            <option value="Hsinchu">新竹</option>
+            <option value="Miaoli">苗栗</option>
+            <option value="Taichung">臺中</option>
+            <option value="Changhua">彰化</option>
+            <option value="Nantou">南投</option>
+            <option value="Yunlin">雲林</option>
+            <option value="Chiayi">嘉義</option>
+            <option value="Tainan">臺南</option>
+            <option value="Kaohsiung">高雄</option>
+            <option value="Pingtung">屏東</option>
+            <option value="Taitung">臺東</option>
+            <option value="Hualien">花蓮</option>
+            <option value="Penghu">澎湖</option>
+            <option value="Kinmen">金門</option>
+            <option value="Lienchiang">連江</option>
+          </select>
+          <p>日期</p>
+          <input type="text" id="text-calendar" class="calendar" name="date" />
+        </form>
+        <input type="submit" value="創建" form="form_project" @click="uploadData">
+      </div>
     </div>
-    <div class="container">
-      <form method="POST" id="form_project">
-        <p>旅程名稱</p>
-        <input name="project_name" v-model="project_name">
-        <p>地點</p>
-        <select name="place" v-model="place">
-          <option value="Keelung">基隆</option>
-          <option value="NewTaipei">新北</option>
-          <option value="Taipei">臺北</option>
-          <option value="Yilan">宜蘭</option>
-          <option value="Taoyuan">桃園</option>
-          <option value="Hsinchu">新竹</option>
-          <option value="Miaoli">苗栗</option>
-          <option value="Taichung">臺中</option>
-          <option value="Changhua">彰化</option>
-          <option value="Nantou">南投</option>
-          <option value="Yunlin">雲林</option>
-          <option value="Chiayi">嘉義</option>
-          <option value="Tainan">臺南</option>
-          <option value="Kaohsiung">高雄</option>
-          <option value="Pingtung">屏東</option>
-          <option value="Taitung">臺東</option>
-          <option value="Hualien">花蓮</option>
-          <option value="Penghu">澎湖</option>
-          <option value="Kinmen">金門</option>
-          <option value="Lienchiang">連江</option>
-        </select>
-        <p>日期</p>
-        <input type="text" id="text-calendar" class="calendar" name="date" />
-      </form>
+    <div v-if='state==1'>
       <p>成員</p>
       <div class="member_group">
         <img class="circle_wrapper" id="profile_img" :src=UserImg>
@@ -40,7 +45,6 @@
             <i class="fas fa-share fa-2x"></i>
         </div>
       </div>
-      <input type="submit" value="創建" form="form_project" @click="uploadData">
     </div>
   </div>
 </template>
@@ -57,11 +61,11 @@ export default {
       UserName: '',
       project_name: null,
       place: null,
+      state: 0
     }
   },
   beforeCreate(){
     window.$( document ).ready(()=>{
-      console.log('aaaaaaaaaa')
       window.$('.calendar').pignoseCalendar({multiple: true,buttons:true});
     })
     var liffID = '1655093786-Joa47Erb';
@@ -85,7 +89,7 @@ export default {
   },
   methods:{
     uploadData(){//上傳到server
-
+      this.state = 1;
     },
     shareTarget(){
       console.log(document.getElementsByName("project_name")[0].value);
