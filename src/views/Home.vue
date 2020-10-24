@@ -14,26 +14,26 @@
           <input type="text" id="text-calendar" class="calendar" name="date" />
           <p>地點:</p>
           <select name="place" v-model="place">
-            <option value="Keelung">基隆</option>
-            <option value="NewTaipei">新北</option>
-            <option value="Taipei">臺北</option>
-            <option value="Yilan">宜蘭</option>
-            <option value="Taoyuan">桃園</option>
-            <option value="Hsinchu">新竹</option>
-            <option value="Miaoli">苗栗</option>
-            <option value="Taichung">臺中</option>
-            <option value="Changhua">彰化</option>
-            <option value="Nantou">南投</option>
-            <option value="Yunlin">雲林</option>
-            <option value="Chiayi">嘉義</option>
-            <option value="Tainan">臺南</option>
-            <option value="Kaohsiung">高雄</option>
-            <option value="Pingtung">屏東</option>
-            <option value="Taitung">臺東</option>
-            <option value="Hualien">花蓮</option>
-            <option value="Penghu">澎湖</option>
-            <option value="Kinmen">金門</option>
-            <option value="Lienchiang">連江</option>
+            <option value="基隆">基隆</option>
+            <option value="新北">新北</option>
+            <option value="臺北">臺北</option>
+            <option value="宜蘭">宜蘭</option>
+            <option value="桃園">桃園</option>
+            <option value="新竹">新竹</option>
+            <option value="苗栗">苗栗</option>
+            <option value="臺中">臺中</option>
+            <option value="彰化">彰化</option>
+            <option value="南投">南投</option>
+            <option value="雲林">雲林</option>
+            <option value="嘉義">嘉義</option>
+            <option value="臺南">臺南</option>
+            <option value="高雄">高雄</option>
+            <option value="屏東">屏東</option>
+            <option value="臺東">臺東</option>
+            <option value="花蓮">花蓮</option>
+            <option value="澎湖">澎湖</option>
+            <option value="金門">金門</option>
+            <option value="連江">連江</option>
           </select>
         <!-- </form> -->
         <button type="submit" @click="uploadData">創建 >></button>
@@ -48,7 +48,7 @@
             <i class="fas fa-share fa-2x"></i>
         </div>
       </div>
-      <a :href='url'>進入專案</a>
+      <router-link :to="{path:'/map',query: {projectId:project_id,place:place}}">進入專案>></router-link>
     </div>
   </div>
 </template>
@@ -73,25 +73,25 @@ export default {
     window.$( document ).ready(()=>{
       window.$('.calendar').pignoseCalendar({multiple: true,buttons:true});
     })
-    var liffID = '1655093786-Joa47Erb';
-    window.liff.init({
-    liffId: liffID
-    })
-    .then(()=> {
-      console.log('LIFF init');
+    // var liffID = '1655093786-Joa47Erb';
+    // window.liff.init({
+    // liffId: liffID
+    // })
+    // .then(()=> {
+    //   console.log('LIFF init');
 
-      if (!window.liff.isLoggedIn()) {
-        window.liff.login();
-      }
-      else{
-        window.liff.getProfile()
-        .then((profile)=>{
-         this.lineId = profile.userId;
-          this.UserName = profile.displayName;
-          this.UserImg = profile.pictureUrl;
-        });
-      }
-    });
+    //   if (!window.liff.isLoggedIn()) {
+    //     window.liff.login();
+    //   }
+    //   else{
+    //     window.liff.getProfile()
+    //     .then((profile)=>{
+    //      this.lineId = profile.userId;
+    //       this.UserName = profile.displayName;
+    //       this.UserImg = profile.pictureUrl;
+    //     });
+    //   }
+    // });
   },
   methods:{
     async uploadData(){//上傳到server
@@ -99,8 +99,9 @@ export default {
       var res = await this.$http.post('createProject',{
         lineId:this.lineId,username:this.UserName,projectName:this.project_name,time:this.date,place:this.place
       })
+      console.log(res);
       this.project_id = res.data.project_id;
-      this.url = "https://liff.line.me/1655093786-Joa47Erb/project?projectId="+this.project_id;
+      this.url = "https://liff.line.me/1655093786-Joa47Erb/map?projectId="+this.project_id+"&place="+this.place;
       this.state = 1; 
     },
     shareTarget(){
@@ -236,10 +237,6 @@ export default {
 .image_container{
     width: 100%;
     height: 60vw;
-    /* display: flex;
-    flex-direction: column;
-    align-content: center;
-    justify-content: center; */
 }
 #cover, .img_filter{
   width: 100%;
@@ -286,12 +283,12 @@ select {
   padding: 0.4rem;
   padding-right: 2rem;
 }
-input[type='submit']{
+button{
   -webkit-appearance: none;
   width: 98%;
   height: 50px;
   border-radius: 10px;
-  background-color:  #2fabb7;
+  background-color:  #b399ff;
   text-align: center;
   cursor: pointer;
   color: white;
@@ -331,8 +328,22 @@ h1{
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
 }
 #profile_img{
     border: black 1px solid;
+}
+i{
+  height: 20px;
+  width: 20px;
+  /* display: flex; */
+  position: relative;
+  left: 0;
+  top: 0;
+}
+a {
+  font-weight: bold;
+  color: #2c3e50;
+  margin: 30px auto;
 }
 </style>

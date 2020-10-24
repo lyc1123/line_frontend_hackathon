@@ -1,49 +1,63 @@
 <template>
-    <div>
+    <div style="text-align:center">
         <div v-if="state == 3">
-            <div class="btn_next" @click="()=>this.state = 4">Debts</div>
-            <Record v-for="record in records" :key="record.demo" :data="record"></Record>
+            <div class="title"><h1>過去的紀錄</h1></div>
+            <Record v-for="record in records" :key="record.name" :data="record"></Record>
+            <table>
+                <tr>
+                    <td>
+                        <div class="btn_next1" @click="()=>this.state = 4">分帳</div>
+                    </td>
+                    <td>
+                        <div class="btn_next1" v-if="state==3" @click="handleClick(0)">+</div>
+                    </td>
+                </tr>
+            </table>    
         </div>
-        <div class="btn_next" v-if="state==3" @click="handleClick(0)">+</div>
 
+        <!-- 所有人的欠債 -->
         <div v-if="state == 4">
-            <div class="btn_next" @click="()=>this.state = 3">＜</div>
+            <div class="title"><h1>目前的統計</h1></div>
             <Debt :data="records"></Debt>
+            <div class="btn_next2" @click="()=>this.state = 3">回紀錄</div>
         </div>
 
-        <nav v-if="state==0||state==1||state==2">
+        <div class="container" v-if="state==0||state==1||state==2">
             <h1>記 帳</h1>
-            <ul class="menu_ul">
-                <li><a class="menu1" href="#" type="button" @click="menu1">金額</a></li>
-                <li><a class="menu2" href="#" type="button" @click="menu2">誰付的錢？</a></li>
-                <li><a class="menu3" href="#" type="button" @click="menu3">為誰？</a></li>
-            </ul>
-        </nav>
-        <div v-if="state == 0">
-                <input  v-model="amount" class="money" placeholder="點擊輸入帳單金額">
+            <div class="menu_ul">
+                <span>金額</span>
+                <span>誰付的錢?</span>
+                <span>為誰?</span>
+            </div>
+        </div>
 
-            <h4>輸入品項：</h4>
-            <input v-model="item_name">
-                <h5>類別：</h5>
-                <img src="@/assets/food.png" width="100" class="sort">
-                <img src="@/assets/accommodation.png" width="100" class="sort">
-                <img src="@/assets/transportation.png" width="100" class="sort">
-                <img src="@/assets/shopping.png" width="100" class="sort">
-                <img src="@/assets/play.png" width="100" class="sort">
-                <img src="@/assets/others.png" width="100" class="sort">
-                <h5>備註：</h5>
-                <table>
-                    <tr>
-    
-                        <td rowspan="2"><img src="@/assets/pen.png" class="pen"></td>
-                        <td><input v-model="memo" class="msgnote" placeholder="點擊新增備註"></td>
-                    </tr>
-                    <tr>
-                        <td><hr class="note" /></td>
-                    </tr>
-                </table>
-            <h4>日期：</h4>
-            <input type="text" id="text-calendar" class="calendar" name="date"/>
+        <div v-if="state == 0">
+            <div style="text-align:center">
+                <input  v-model="amount" class="money" placeholder="點擊輸入帳單金額">
+            </div>
+            <h5>品項：</h5>
+            <table>
+                <tr>
+                    <td rowspan="2"><img src="@/assets/pen.png" class="pen"></td>
+                    <td><input v-model="item_name" class="msgnote" placeholder="點擊新增品項"></td>
+                </tr>
+            </table>
+            <h5>類別：</h5>
+            <img src="@/assets/food.png" width="100" class="sort" :class="{clicked:index_state[0]}" @click="iconClick(0)">
+            <img src="@/assets/accommodation.png" width="100" class="sort" :class="{clicked:index_state[1]}" @click="iconClick(1)">
+            <img src="@/assets/transportation.png" width="100" class="sort" :class="{clicked:index_state[2]}" @click="iconClick(2)">
+            <img src="@/assets/shopping.png" width="100" class="sort" :class="{clicked:index_state[3]}" @click="iconClick(3)">
+            <img src="@/assets/play.png" width="100" class="sort" :class="{clicked:index_state[4]}" @click="iconClick(4)">
+            <img src="@/assets/others.png" width="100" class="sort" :class="{clicked:index_state[5]}" @click="iconClick(5)">
+            <h5>備註：</h5>
+            <table>
+                <tr>
+                    <td rowspan="2"><img src="@/assets/pen.png" class="pen"></td>
+                    <td><input v-model="memo" class="msgnote" placeholder="點擊新增備註"></td>
+                </tr>
+            </table>
+            <h5>日期：</h5>
+            <input placeholder="點擊新增日期" type="text" id="text-calendar" class="calendar" name="date"/>
         </div>
         <div class="btn_next" v-if="state==0&&amount!=null" @click="handleClick(1)">Who Paid >></div>
 
@@ -76,8 +90,13 @@ export default {
             memo: '',
             date: '',
             member: '',
-            records:[],
-            project_id:'5f93c69ec1cf340017d9b33b'
+            records:[
+                {name:"apple",date:"2020-10-23",amount:1000,memo:"hi",user:[{name:'user1',paidAmount:1000,cost:500},{name:'user2',paidAmount:null,cost:500}]},
+                {name:"cake",date:"2020-10-24",amount:1000,memo:"hi",user:[{name:'user1',paidAmount:500,cost:1000},{name:'user2',paidAmount:500,cost:null}]}
+            ],
+            project_id:this.$route.query.project_id,
+            index:0,
+            index_state:[true,false,false,false,false,false]
         }
     },
     created(){
@@ -86,13 +105,13 @@ export default {
     methods: {
         async requestRecords(){
             //請求紀錄
-            var res = await this.$http.get('getRecord?project_id='+this.project_id);
-            var record_list = []
-            for (let i=0; i<res.data.record.length; i++){
-                record_list[i] = res.data.record[i].item//待改demo.itemName
-                record_list[i].user = res.data.record[i].member;
-            }
-            this.records = record_list;
+            // var res = await this.$http.get('getRecord?project_id='+this.project_id);
+            // var record_list = []
+            // for (let i=0; i<res.data.record.length; i++){
+            //     record_list[i] = res.data.record[i].item//待改demo.itemName
+            //     record_list[i].user = res.data.record[i].member;
+            // }
+            // this.records = record_list;
             // console.log(this.records)
             
             let userinfo = []
@@ -140,6 +159,12 @@ export default {
             if (Math.round(sum) == this.amount) return true;
             else return false;
         },
+        iconClick(index){
+            console.log(index)
+            this.index = index;
+            this.index_state=[false,false,false,false,false,false]
+            this.index_state[index] = true
+        },
         async uploadRecord(){
             this.member.forEach(e=>{
                 delete e.edited;
@@ -161,66 +186,106 @@ export default {
 </script>
 
 <style scoped>
-nav{  
-    padding-top: 20px;
-    padding-bottom: 10px;
-    height: 180px;
-    width: 100%;
-    background-color: #6633cc;
-} 
-nav h1{
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-align: center;
+}
+.btn_next1{
+    width: 80%;
+    height: 40px;
+    margin-left: 5%;
+    margin-top: 10px;
+    
+    background-color:  #B399FF;
+    font-size: 20px;
+    border-radius: 10px;
+    font-weight: bold;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  cursor: pointer;
+}
+
+.btn_next2{
+    width: 60%;
+    height: 40px;
+    margin-left: 20%;
+    margin-top: 10px;
+    
+    background-color:  #B399FF;
+    font-size: 20px;
+    border-radius: 10px;
+    font-weight: bold;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  cursor: pointer;
+}
+
+h1{
+    
     font-size: 30px;
     color: rgb(255, 255,255);
 }
-
-h4{
-    z-index: 0;
-    font-size: 20px;
+.title{  
+    padding-top: 10px;
+    height: 60px;
+    background-color: #6633cc;
+} 
+.container{  
+    /* padding-top: 20px;
+    padding-bottom: 10px; */
+    text-align: center;
+    height: 30vw;
+    width: 100vw;
+    background-color: #6633cc;
+    margin-bottom: 20px;
+} 
+.container h1{
+    /* position: absolute;
+    top:12vw;
+    left: 35vw; */
+    color: rgb(255, 255,255);
+    margin:10px 0;
+    padding-top: 20px;
+    text-shadow: 1px 3px rgba(0, 0, 0, 0.52);
 }
 
 .menu_ul{
     /* 平均在最上面，空白填充 */
     /* display: flex; */
-    flex-direction: row;
-    justify-content: space-around;
-    
-    display: inline-block;
-    width: 60%;
-    height: 30px;
-    line-height: 30px;
+    /* flex-direction: row;
+    justify-content: space-around; */
+    /* position: absolute;
+    top: 50vw; */
+    /* display: inline-block; */
+    width: 66%;
+    height: 25px;
+    /* line-height: 30px; */
     background-color:#B399FF;
     border-radius: 30px;
     white-space:nowrap;
-    margin-top: 10px;
+    margin: 0 auto;
+    /* margin-top: 10px; */
 }
 
-ul li {
-    display: inline;
-    /* float: left; */
-    list-style: none;
-    margin-left: 0px;
-    margin-right: 0px;
-    height: 30px;
-    width: 20px;
-    padding: 0 10px;
+span {
+    /* display: inline;
+    float: left;
+    list-style: none; */
+    /* margin-left: 0px;
+    margin-right: 10px; */
+    /* height: 38px; */
+    padding: 3px 18px;
     background-color: white;
-}
-
-
-ul li a{
-    display: inline;
-    text-decoration: none;
-    font-size:10px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    border-radius: 20px;
     color:#6633cc;
-    border-radius: 30px;
-    /* height:60px; */
-    margin-top: 0px;
-    margin-bottom: 0px;
-    /* padding-left: 10px;
-    padding-right: 10px; */
-    
 }
 /* .menu1{
     
@@ -237,34 +302,36 @@ ul li a{
 } */
 
 .money{
-    height: 120px;
-    width: 100%;
+    height: 40px;
+    width: 80%;
     z-index: -1;
+    font-size: 20px;
 }
 
 input{
     border: none;
-    font-size: 35px;
+    border-bottom: 1px solid #555555;
+    /* font-size: 22px; */
 }
 
 ::placeholder {
     color: #C0C0C0;
-    font-size: 35px;
-}
-hr{
-    width: 80%;
-    margin-left: 10%;
+    /* font-size: 35px; */
 }
 h5{
-    font-size: 20px;
-    margin-top: 30px;
+    /* font-size: 20px; */
+    padding: 5px 10px;
+    margin: 10px 0;
+    text-align: start;
     background-color: #E6E6FA;
 }
 
 .sort{
-    margin-left: 55px;
-    margin-right: 55px;
-    margin-top: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
+    /* margin-top: 10px; */
+    height: 22vw;
+    width: 22vw;
 }
 /* 線 */
 .note{
@@ -276,7 +343,7 @@ h5{
 /* 圖 */
 .pen{
     margin-left: 0%;
-    width:100%;
+    width:40px;
 }
 /* 點擊匡 */
 .msgnote{
@@ -290,5 +357,20 @@ table{
     width: 60%;
     margin-left: 20%;
 }
-
+.btn_next{
+    -webkit-appearance: none;
+  width: 98%;
+  height: 56px;
+  border-radius: 10px;
+  background-color:  #b399ff;
+  text-align: center;
+  cursor: pointer;
+  color: white;
+  margin-top: 5vw;
+  padding-top:20px
+}
+.clicked{
+    border: #6633cc 1px solid;
+    border-radius:10px ;
+}
 </style>

@@ -82,7 +82,7 @@ export default {
 }
 
 .todo-app__checkbox input[type='checkbox']:checked + label {
-    background: #26ca299b;
+    background: #b399ff;
 }
 
 .todo-app__item-detail {
@@ -99,6 +99,8 @@ input[type='text']{
   right: 20px;
 }
 i{
+  width:20px;
+  height: 20px;
   right: 20px;
 }
 </style>

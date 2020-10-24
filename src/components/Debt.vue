@@ -1,8 +1,8 @@
 <template>
     <div>
         <div v-for="user in debt_array" :key="user.name">
-            <span>{{user.name}}</span>
-            <span>{{user.debt}}</span>
+            <h6 class="user">{{user.name}}</h6>
+            <h6 class="debt">$ {{user.debt}}</h6>
         </div>
     </div>
 </template>
@@ -32,5 +32,18 @@ export default {
 </script>
 
 <style scoped>
-
+h6{
+    font-size: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.user{
+    /* margin-top: 10px; */
+    background-color: #E6E6FA;
+    text-align: left;
+    padding-left: 10%;
+}
+.debt{
+    /* margin-top: 10px; */
+}
 </style>
