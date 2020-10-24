@@ -7,7 +7,7 @@
         <h1>創建旅程</h1>
       </div>
       <div class="container">
-        <form method="POST" id="form_project">
+        <!-- <form method="POST" id="form_project"> -->
           <p>旅程名稱:</p>
           <input name="project_name" v-model="project_name">
           <p>日期:</p>
@@ -35,11 +35,12 @@
             <option value="Kinmen">金門</option>
             <option value="Lienchiang">連江</option>
           </select>
-        </form>
-        <input type="submit" value="創建 >>" form="form_project" @click="uploadData">
+        <!-- </form> -->
+        <button type="submit" @click="uploadData">創建 >></button>
       </div>
     </div>
-    <div v-if='state==1'>
+    <div class="share" v-if='state==1'>
+      <h1>創建成功</h1>
       <p>將旅程分享給你的夥伴</p>
       <div class="member_group">
         <img class="circle_wrapper" id="profile_img" :src=UserImg>
@@ -47,6 +48,7 @@
             <i class="fas fa-share fa-2x"></i>
         </div>
       </div>
+      <a :href='url'>進入專案</a>
     </div>
   </div>
 </template>
@@ -57,10 +59,13 @@ export default {
   data(){
     return {
       UserImg: '../assets/logo.png',
-      UserName: '',
+      UserName: 'test',
       project_name: null,
       place: null,
       date: null,
+      lineId: 'testtest',
+      project_id : null,
+      url: null,
       state: 0
     }
   },
@@ -68,29 +73,35 @@ export default {
     window.$( document ).ready(()=>{
       window.$('.calendar').pignoseCalendar({multiple: true,buttons:true});
     })
-    // var liffID = '1655093786-Joa47Erb';
-    // window.liff.init({
-    // liffId: liffID
-    // })
-    // .then(()=> {
-    //   console.log('LIFF init');
+    var liffID = '1655093786-Joa47Erb';
+    window.liff.init({
+    liffId: liffID
+    })
+    .then(()=> {
+      console.log('LIFF init');
 
-    //   if (!window.liff.isLoggedIn()) {
-    //     window.liff.login();
-    //   }
-    //   else{
-    //     window.liff.getProfile()
-    //     .then((profile)=>{
-    //       this.UserName = profile.displayName;
-    //       this.UserImg = profile.pictureUrl;
-    //     });
-    //   }
-    // });
+      if (!window.liff.isLoggedIn()) {
+        window.liff.login();
+      }
+      else{
+        window.liff.getProfile()
+        .then((profile)=>{
+         this.lineId = profile.userId;
+          this.UserName = profile.displayName;
+          this.UserImg = profile.pictureUrl;
+        });
+      }
+    });
   },
   methods:{
-    uploadData(){//上傳到server
-      this.state = 1;
+    async uploadData(){//上傳到server
       this.date = document.getElementsByName("date")[0].value;
+      var res = await this.$http.post('createProject',{
+        lineId:this.lineId,username:this.UserName,projectName:this.project_name,time:this.date,place:this.place
+      })
+      this.project_id = res.data.project_id;
+      this.url = "https://liff.line.me/1655093786-Joa47Erb/project?projectId="+this.project_id;
+      this.state = 1; 
     },
     shareTarget(){
       window.liff.shareTargetPicker([
@@ -106,7 +117,7 @@ export default {
         "aspectMode": "cover",
         "action": {
           "type": "uri",
-          "uri": "https://liff.line.me/1655093786-Joa47Erb/project"
+          "uri": this.url
         }
       },
       "body": {
@@ -204,7 +215,7 @@ export default {
             "action": {
               "type": "uri",
               "label": "加入",
-              "uri": "https://liff.line.me/1655093786-Joa47Erb/project"
+              "uri": this.url
             }
           },
           {
@@ -240,7 +251,7 @@ export default {
 .img_filter{
   background-color: rgba(0,0,0,0.3);
 }
-h1{
+.image_container h1{
   position: absolute;
   color: white;
   z-index: 3;
@@ -251,7 +262,7 @@ h1{
 .container{
   margin: 10px 6%;
 }
-p{
+.container p{
     font-size: 5vw;
     margin: 2vw 0;
 }
@@ -285,6 +296,19 @@ input[type='submit']{
   cursor: pointer;
   color: white;
   margin-top: 5vw;
+}
+.share{
+  display: flex;
+  height: 90%;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+}
+h1{
+  text-align: center;
+}
+.share p{
+  text-align: center;
 }
 .circle_wrapper{
     border-radius: 50%;
