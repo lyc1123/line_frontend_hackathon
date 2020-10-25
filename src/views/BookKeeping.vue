@@ -115,12 +115,11 @@ export default {
         },
         loadFriends(){
            var mem = this.$route.query.friends;
-           console.log();
            let userinfo = []
             for (var i = 0;i<mem.length;i++){
                 console.log(mem[i]);
                 let name = mem[i].friendName;
-                console.log(name);
+                alert(name);
                 userinfo[i] = {name:name, paidAmount:null, cost:null, state:false, edited:false}
             }
             this.member = userinfo;

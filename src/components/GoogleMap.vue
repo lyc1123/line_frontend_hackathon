@@ -105,6 +105,7 @@ export default {
             .then((profile)=>{
             this.lineId = profile.userId;
             this.UserName = profile.displayName;
+            alert('get profile')
             });
         }
         });
@@ -134,7 +135,7 @@ export default {
             var res = await this.$http.get('addFriend?project_id='+this.projectId+'&friendId='+this.userId+'&friendName='+this.UserName)
             console.log(res);
             this.friends_list = res.data.friends_list.friends;
-            alert(this.friends_list)
+            alert(this.friends_list[0].friendName)
         },
         async needMarker() {
             var res = await this.$http.get('getAllAlbums?project_id='+this.projectId);
