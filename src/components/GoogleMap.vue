@@ -76,8 +76,8 @@ export default {
                 lng: 120.99157909999998
             },
             markers:[],
-            userId:'',
-            UserName:'',
+            userId:'iddddd',
+            UserName:'nameeee',
         };
     },
     created() {
@@ -105,7 +105,7 @@ export default {
             .then((profile)=>{
             this.lineId = profile.userId;
             this.UserName = profile.displayName;
-            alert('get profile')
+            alert(this.UserName)
             });
         }
         });
@@ -135,6 +135,7 @@ export default {
             var res = await this.$http.get('addFriend?project_id='+this.projectId+'&friendId='+this.userId+'&friendName='+this.UserName)
             console.log(res);
             this.friends_list = res.data.friends_list.friends;
+            console.log(this.friends_list);
             alert(this.friends_list[0].friendName)
         },
         async needMarker() {
