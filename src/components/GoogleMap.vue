@@ -136,7 +136,8 @@ export default {
             console.log(res);
             this.friends_list = res.data.friends_list.friends;
             console.log(this.friends_list);
-            alert(this.friends_list[0].friendName)
+            alert(this.friends_list[1].friendName)
+            alert(this.friends_list[1].friendName)
         },
         async needMarker() {
             var res = await this.$http.get('getAllAlbums?project_id='+this.projectId);
