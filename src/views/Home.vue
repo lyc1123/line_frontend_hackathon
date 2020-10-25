@@ -36,7 +36,7 @@
             <option value="連江">連江</option>
           </select>
         <!-- </form> -->
-        <button type="submit" @click="uploadData">創建 >></button>
+        <button type="submit" @click="uploadData" style="font-size:22px">創建 >></button>
       </div>
     </div>
     <div class="share" v-if='state==1'>
@@ -103,6 +103,7 @@ export default {
       console.log(res);
       this.project_id = res.data.project_id;
       this.url = "https://liff.line.me/1655093786-Joa47Erb/map?projectId="+this.project_id+"&place="+this.place;
+      alert(this.url)
       this.state = 1; 
     },
     shareTarget(){

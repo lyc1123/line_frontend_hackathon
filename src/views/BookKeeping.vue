@@ -90,10 +90,7 @@ export default {
             memo: '',
             date: '',
             member: '',
-            records:[
-                {name:"apple",date:"2020-10-23",amount:1000,memo:"hi",user:[{name:'user1',paidAmount:1000,cost:500},{name:'user2',paidAmount:null,cost:500}]},
-                {name:"cake",date:"2020-10-24",amount:1000,memo:"hi",user:[{name:'user1',paidAmount:500,cost:1000},{name:'user2',paidAmount:500,cost:null}]}
-            ],
+            records:[],
             project_id:this.$route.query.project_id,
             index:0,
             index_state:[true,false,false,false,false,false]
@@ -101,29 +98,31 @@ export default {
     },
     created(){
         this.requestRecords();
+        this.loadFriends();
     },
     methods: {
         async requestRecords(){
             //請求紀錄
-            // var res = await this.$http.get('getRecord?project_id='+this.project_id);
-            // var record_list = []
-            // for (let i=0; i<res.data.record.length; i++){
-            //     record_list[i] = res.data.record[i].item//待改demo.itemName
-            //     record_list[i].user = res.data.record[i].member;
-            // }
-            // this.records = record_list;
-            // console.log(this.records)
-            
-            let userinfo = []
-            for (var i = 0;i<this.records[0]["user"].length;i++){
-                userinfo.push(Object.assign({}, this.records[0]["user"][i]))
+            var res = await this.$http.get('getRecord?project_id='+this.project_id);
+            console.log(res);
+            var record_list = []
+            for (let i=0; i<res.data.record.length; i++){
+                record_list[i] = res.data.record[i].item
+                record_list[i].user = res.data.record[i].member;
             }
-            userinfo.forEach(e=>{
-                e.paidAmount = null;
-                e.cost = null;
-                e.state = false;
-                e.edited = false;
-            })
+            this.records = record_list;
+            console.log(this.records)
+        },
+        loadFriends(){
+           var mem = this.$route.query.friends;
+           console.log();
+           let userinfo = []
+            for (var i = 0;i<mem.length;i++){
+                console.log(mem[i]);
+                let name = mem[i].friendName;
+                console.log(name);
+                userinfo[i] = {name:name, paidAmount:null, cost:null, state:false, edited:false}
+            }
             this.member = userinfo;
         },
         handleClick(i){

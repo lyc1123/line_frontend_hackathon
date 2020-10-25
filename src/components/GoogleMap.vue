@@ -37,6 +37,7 @@ export default {
     data() {
         const mapMarker = require('@/assets/cutePeople_icon2.png');
         return {
+            friend_list:null,
             mapLatlng:{
                 新北: {lng: 121.6739, lat: 24.91571},
                 高雄: {lng: 120.666, lat: 23.01087},
@@ -74,18 +75,12 @@ export default {
                 lat: 24.7934952,
                 lng: 120.99157909999998
             },
-            markers:[]
+            markers:[],
+            userId:'useriddd',
+            UserName:'usernameeeeee',
         };
     },
     created() {
-        // get user's coordinates from browser requset
-        // this.$getLocation({})
-        //     .then(coordinates => {
-        //         this.Mycoordinates = coordinates;
-        //         console.log(coordinates.lat, coordinates.lng)
-        //         //get city 的座標
-        //     })
-        //     .catch(error => alert(error));
         if (this.place!=undefined){
             this.Mycoordinates.lat = this.mapLatlng[this.place].lat;
             this.Mycoordinates.lng = this.mapLatlng[this.place].lng;
@@ -136,8 +131,9 @@ export default {
     },
     methods: {
         async addFriend(){
-            var res = await this.$http.get('addFriend?project_id='+this.projectId+'&friendId='+this.userId+'&userName='+this.UserName)
-            console.log(res)
+            var res = await this.$http.get('addFriend?project_id='+this.projectId+'&friendId='+this.userId+'&friendName='+this.UserName)
+            console.log(res);
+            this.friends_list = res.data.friends_list.friends;
         },
         async needMarker() {
             var res = await this.$http.get('getAllAlbums?project_id='+this.projectId);
@@ -170,7 +166,7 @@ export default {
         },
 
         bill() {
-            this.$router.push({ path:'/bookkeeping', query: {project_id:this.projectId}})
+            this.$router.push({ path:'/bookkeeping', query: {project_id:this.projectId,friends:this.friends_list}})
         },
     },
 }

@@ -10,7 +10,7 @@
                 </td>
                 <td>
                     <div v-if="popup==false">
-                        <h6 valign="bottom">--------點擊以查看詳細記錄--------</h6>
+                        <h6 valign="bottom">-------點擊以查看詳細記錄-------</h6>
                     </div>
                     <div v-if="popup==true">
                         <div class="banner" >誰付的?</div>
@@ -29,9 +29,6 @@
             </tr>
             
         </table>
-        
-        
-        
     </div>
 </template>
 
@@ -44,7 +41,7 @@ export default {
     data(){
         return{
             popup:false,
-            itemName:this.data["name"],
+            itemName:this.data["itemName"],
             date:this.data["date"],
             amount:this.data["amount"],
             memo:this.data["memo"],
@@ -110,4 +107,10 @@ td{
     margin-left: 40%;
     width: 50%;
 } */
+h5{
+    font-size: 18px;
+}
+h6{
+    font-size: 12px;
+}
 </style>
