@@ -23,23 +23,23 @@ export default {
         }
     },
     created(){
-        // var liffID = '1655093786-Joa47Erb';
-        // window.liff.init({
-        // liffId: liffID
-        // })
-        // .then(()=> {
-        // console.log('LIFF init');
+        var liffID = '1655093786-Joa47Erb';
+        window.liff.init({
+        liffId: liffID
+        })
+        .then(()=> {
+        console.log('LIFF init');
 
-        // if (!window.liff.isLoggedIn()) {
-        //     window.liff.login();
-        // }
-        // else{
-        //     window.liff.getProfile()
-        //     .then((profile)=>{
-        //     this.line_id = profile.userId;
-        //     });
-        // }
-        // });
+        if (!window.liff.isLoggedIn()) {
+            window.liff.login();
+        }
+        else{
+            window.liff.getProfile()
+            .then((profile)=>{
+            this.line_id = profile.userId;
+            });
+        }
+        });
         this.getProjects();
     },
     methods: {
