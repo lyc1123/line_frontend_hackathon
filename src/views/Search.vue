@@ -31,7 +31,8 @@ export default {
         console.log('LIFF init');
 
         if (!window.liff.isLoggedIn()) {
-            window.liff.login();
+            // window.liff.login();
+            console.log("not login");
         }
         else{
             window.liff.getProfile()
@@ -49,7 +50,7 @@ export default {
             console.log(this.project_list);
         },
         handleClick(index){
-            console.log(this.project_list[index]._id);
+            this.$router.push({ path: '/map', query: {project_id:this.project_list[index], place:this.project_list[index].place}})
         }
     }
 }

@@ -137,7 +137,8 @@ export default {
   padding: 5%;
   font-size: 30px;
   color: white;
-  background-color: #6633cc;
+  box-shadow:2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(rgba(49,46,140, 1), rgba( 255,177,123, 1));
 }
 #album_name{
   margin-top: 5px;

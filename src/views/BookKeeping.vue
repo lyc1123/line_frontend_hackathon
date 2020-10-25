@@ -244,8 +244,9 @@ h1{
     width: 100vw;
     margin-bottom: 20px;
     border-radius: 10px;
-  background-color: rgba( 255,177,123, 1);
-  box-shadow:2px 2px 2px 1px rgba(0, 0, 0, 0.2); ;
+  /* background-color: rgba( 255,177,123, 1); */
+  box-shadow:2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(rgba(49,46,140, 1), rgba( 255,177,123, 1));
 } 
 .container h1{
     /* position: absolute;
