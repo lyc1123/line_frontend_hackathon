@@ -5,7 +5,7 @@
       <label :for="name"></label>
     </div>
     <h3 class="todo-app__item-detail">{{name}}</h3>
-    <input type="text" ref="inputAmount" v-show="state" :value="cost" @keyup="emitAmount">
+    <input type="text" ref="inputAmount" v-show="state" :value="cost" @keyup="emitAmount" class="inputMoney">
     <i class="fas fa-pen" @click="editAmount" v-show="state"></i>
   </li>
 </template>
@@ -102,5 +102,10 @@ i{
   width:20px;
   height: 20px;
   right: 20px;
+}
+.inputMoney{
+  margin-left: 10px;
+  margin-top: 2px;
+  font-size: 16px;
 }
 </style>

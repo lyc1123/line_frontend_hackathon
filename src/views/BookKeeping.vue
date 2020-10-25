@@ -242,8 +242,10 @@ h1{
     text-align: center;
     height: 30vw;
     width: 100vw;
-    background-color: #6633cc;
     margin-bottom: 20px;
+    border-radius: 10px;
+  background-color: rgba( 255,177,123, 1);
+  box-shadow:2px 2px 2px 1px rgba(0, 0, 0, 0.2); ;
 } 
 .container h1{
     /* position: absolute;

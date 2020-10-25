@@ -5,7 +5,7 @@
       <label :for="name"></label>
     </div>
     <h3 class="todo-app__item-detail">{{name}}</h3>
-    <input type="text" ref="inputAmount" v-show="state" :value="paidAmount" @keyup="emitAmount">
+    <input type="text" ref="inputAmount" v-show="state" :value="paidAmount" @keyup="emitAmount" class="inputMoney">
     <i class="fas fa-pen" @click="editAmount" v-show="state"></i>
   </li>
 </template>
@@ -92,10 +92,7 @@ export default {
     height: 100%;
     border-radius: 4px;
     padding: 2px 5px ;
-     background-color: #ffebcd;
-
-
-    
+     background-color: #ffebcd;    
 }
 input[type='checkbox'] {
     visibility: hidden;

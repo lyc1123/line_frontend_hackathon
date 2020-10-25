@@ -105,7 +105,7 @@ export default {
             .then((profile)=>{
             this.userId = profile.userId;
             this.UserName = profile.displayName;
-            alert(this.UserName)
+            // alert(this.UserName)
             this.addFriend();
             });
         }
@@ -133,11 +133,10 @@ export default {
     methods: {
         async addFriend(){
             var res = await this.$http.get('addFriend?project_id='+this.projectId+'&friendId='+this.userId+'&friendName='+this.UserName)
+            var res = await this.$http.get('addFriend?project_id='+this.projectId+'&friendId=bvdfvbu34g34t&friendName='+"夏宇澄")
             console.log(res);
             this.friends_list = res.data.friends_list.friends;
             console.log(this.friends_list);
-            alert(this.friends_list[1].friendName)
-            alert(this.friends_list[1].friendName)
         },
         async needMarker() {
             var res = await this.$http.get('getAllAlbums?project_id='+this.projectId);
@@ -213,9 +212,6 @@ export default {
     left: 150px;
     z-index: 5;
     border-radius: 50%;
-}
-gmap-marker{
-    
 }
 
 </style>
