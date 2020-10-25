@@ -94,6 +94,26 @@ export default {
             this.Mycoordinates.lat = this.position.lat;
             this.Mycoordinates.lng = this.position.lng;
         }
+
+        var liffID = '1655093786-Joa47Erb';
+        window.liff.init({
+        liffId: liffID
+        })
+        .then(()=> {
+        console.log('LIFF init');
+
+        if (!window.liff.isLoggedIn()) {
+            window.liff.login();
+        }
+        else{
+            window.liff.getProfile()
+            .then((profile)=>{
+            this.lineId = profile.userId;
+            this.UserName = profile.displayName;
+            });
+        }
+        });
+        this.addFriend();
         this.needMarker()
     },
     mounted() {
@@ -115,6 +135,10 @@ export default {
         },
     },
     methods: {
+        async addFriend(){
+            var res = await this.$http.get('addFriend?project_id='+this.projectId+'&friendId='+this.userId+'&userName='+this.UserName)
+            console.log(res)
+        },
         async needMarker() {
             var res = await this.$http.get('getAllAlbums?project_id='+this.projectId);
             console.log(res)
