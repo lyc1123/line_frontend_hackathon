@@ -106,10 +106,10 @@ export default {
             this.lineId = profile.userId;
             this.UserName = profile.displayName;
             alert(this.UserName)
+            this.addFriend();
             });
         }
         });
-        this.addFriend();
         this.needMarker()
     },
     mounted() {

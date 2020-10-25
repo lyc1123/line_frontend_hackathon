@@ -66,7 +66,29 @@ export default {
       lineId: 'testtest',
       project_id : null,
       url: null,
-      state: 0
+      state: 0,
+      mapEng = {
+    新北: "New Taipei",
+    高雄: "Kaohsiung",
+    臺中: "Taichung",
+    臺北: "Taipei",
+    桃園: "Taoyuan",
+    臺南: "Tainan",
+    彰化: "Changhua",
+    屏東: "Pingtung",
+    雲林: "Yunlin",
+    苗栗: "Miaoli",
+    嘉義: "Chiayi",
+    新竹: "Hsinchu",
+    南投: "Nantou",
+    宜蘭: "Yilan",
+    基隆: "Keelung",
+    花蓮: "Hualien",
+    臺東: "Taitung",
+    金門: "Kinmen",
+    澎湖: "Penghu",
+    連江: "Lienchiang",
+}
     }
   },
   beforeCreate(){
@@ -102,11 +124,11 @@ export default {
       })
       console.log(res);
       this.project_id = res.data.project_id;
-      this.url = "https://liff.line.me/1655093786-Joa47Erb/map?projectId="+this.project_id+"&place="+this.place;
-      alert(this.url)
       this.state = 1; 
     },
     shareTarget(){
+      let eng_place = mapEng[this.place]
+      this.url = "https://liff.line.me/1655093786-Joa47Erb/map?projectId="+this.project_id+"&place="+eng_place;
       window.liff.shareTargetPicker([
     {"type": "flex",
     "altText": "Flex Message",
