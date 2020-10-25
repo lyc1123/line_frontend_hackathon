@@ -127,7 +127,7 @@ export default {
       this.state = 1; 
     },
     shareTarget(){
-      let eng_place = mapEng[this.place]
+      let eng_place = this.mapEng[this.place]
       this.url = "https://liff.line.me/1655093786-Joa47Erb/map?projectId="+this.project_id+"&place="+eng_place;
       window.liff.shareTargetPicker([
     {"type": "flex",
