@@ -119,7 +119,7 @@ export default {
             for (var i = 0;i<mem.length;i++){
                 console.log(mem[i]);
                 let name = mem[i].friendName;
-                alert(name);
+                // alert(name);
                 userinfo[i] = {name:name, paidAmount:null, cost:null, state:false, edited:false}
             }
             this.member = userinfo;
