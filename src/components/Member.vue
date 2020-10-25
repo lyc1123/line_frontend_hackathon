@@ -90,6 +90,12 @@ export default {
     overflow-wrap: break-word;
     transition: opacity 0.3s;
     height: 100%;
+    border-radius: 4px;
+    padding: 2px 5px ;
+     background-color: #ffebcd;
+
+
+    
 }
 input[type='checkbox'] {
     visibility: hidden;
@@ -102,5 +108,11 @@ i{
   width:20px;
   height: 20px;
   right: 20px;
+}
+
+.inputMoney{
+  margin-left: 10px;
+  margin-top: 2px;
+  font-size: 16px;
 }
 </style>

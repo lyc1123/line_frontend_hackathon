@@ -35,7 +35,7 @@ export default {
         position: Object
     },
     data() {
-        const mapMarker = require('@/assets/cutePeople_icon2.png');
+        const mapMarker = require('@/assets/pin.png');
         return {
             friend_list:null,
             mapLatlng:{
@@ -63,8 +63,8 @@ export default {
             markerOptions: {
                 url: mapMarker,
                 scaledSize: {
-                    width: 30,
-                    height: 40,
+                    width: 50,
+                    height: 50,
                     f: 'px',
                     b: 'px',
                 },
@@ -209,9 +209,13 @@ export default {
     background: none;
     border: none;
     position: fixed;
-    bottom: 100px;
-    left: 50px;
+    bottom: 65px;
+    left: 150px;
     z-index: 5;
     border-radius: 50%;
 }
+gmap-marker{
+    
+}
+
 </style>

@@ -365,7 +365,11 @@ table{
   cursor: pointer;
   color: white;
   margin-top: 5vw;
-  padding-top:20px
+  padding-top:20px;
+
+  border-radius: 10px;
+  background-color: rgba( 255,177,123, 1);
+  box-shadow:2px 2px 2px 1px rgba(0, 0, 0, 0.2); ;
 }
 .clicked{
     border: #6633cc 1px solid;
