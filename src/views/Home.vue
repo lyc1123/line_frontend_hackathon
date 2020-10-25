@@ -73,25 +73,25 @@ export default {
     window.$( document ).ready(()=>{
       window.$('.calendar').pignoseCalendar({multiple: true,buttons:true});
     })
-    // var liffID = '1655093786-Joa47Erb';
-    // window.liff.init({
-    // liffId: liffID
-    // })
-    // .then(()=> {
-    //   console.log('LIFF init');
+    var liffID = '1655093786-Joa47Erb';
+    window.liff.init({
+    liffId: liffID
+    })
+    .then(()=> {
+      console.log('LIFF init');
 
-    //   if (!window.liff.isLoggedIn()) {
-    //     window.liff.login();
-    //   }
-    //   else{
-    //     window.liff.getProfile()
-    //     .then((profile)=>{
-    //      this.lineId = profile.userId;
-    //       this.UserName = profile.displayName;
-    //       this.UserImg = profile.pictureUrl;
-    //     });
-    //   }
-    // });
+      if (!window.liff.isLoggedIn()) {
+        window.liff.login();
+      }
+      else{
+        window.liff.getProfile()
+        .then((profile)=>{
+         this.lineId = profile.userId;
+          this.UserName = profile.displayName;
+          this.UserImg = profile.pictureUrl;
+        });
+      }
+    });
   },
   methods:{
     async uploadData(){//上傳到server
