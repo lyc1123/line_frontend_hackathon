@@ -103,7 +103,7 @@ export default {
         else{
             window.liff.getProfile()
             .then((profile)=>{
-            this.lineId = profile.userId;
+            this.userId = profile.userId;
             this.UserName = profile.displayName;
             alert(this.UserName)
             this.addFriend();
