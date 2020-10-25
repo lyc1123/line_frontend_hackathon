@@ -67,7 +67,7 @@ export default {
       project_id : null,
       url: null,
       state: 0,
-      mapEng = {
+      mapEng :{
     新北: "New Taipei",
     高雄: "Kaohsiung",
     臺中: "Taichung",
