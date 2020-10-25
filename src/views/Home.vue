@@ -81,7 +81,8 @@ export default {
       console.log('LIFF init');
 
       if (!window.liff.isLoggedIn()) {
-        window.liff.login();
+        // window.liff.login();
+        alert('not login')
       }
       else{
         window.liff.getProfile()
